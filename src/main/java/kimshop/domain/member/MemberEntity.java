@@ -2,6 +2,7 @@ package kimshop.domain.member;
 
 import kimshop.dto.MemberDto;
 import kimshop.domain.member.Role;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -12,6 +13,7 @@ import javax.persistence.*;
 @Table(name = "member")
 @Getter @Setter
 @ToString
+@Builder
 public class MemberEntity {
 
     @Id
@@ -31,16 +33,5 @@ public class MemberEntity {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    public static MemberEntity createMember(MemberDto memberDto,
-                                      PasswordEncoder passwordEncoder)
-    {
-        MemberEntity memberEntity = new MemberEntity();
-        memberEntity.setMname(memberDto.getMname());
-        memberEntity.setMemail(memberDto.getMemail());
-        memberEntity.setAddress(memberDto.getAddress());
-        String password = passwordEncoder.encode(memberDto.getMpassword());
-        memberEntity.setMpassword(password);
-        memberEntity.setRole(Role.USER);
-        return memberEntity;
-    }
+
 }
